@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Enrollment</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  .enrollment-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .enrollment-form label {
+    margin-bottom: 5px;
+    color: #555;
+  }
+  .enrollment-form input,
+  .enrollment-form select,
+  .enrollment-form button {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .enrollment-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  .enrolled-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .enrolled-list {
+    flex: 1;
+    margin-left: 20px;
+  }
+  .enrolled-list h2 {
+    color: #555;
+  }
+  .enrolled-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+  }
+  .enrolled-list li img {
+    max-width: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body style="background-color: rgb(189, 194, 255);">
+<div class="container">
+  <h1 style="color: #007bff;">Student Enrollment Form</h1>
+  <form class="enrollment-form" style="background-color:rgb(154, 255, 255);">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    
+    <label for="course">Select Course:</label>
+    <select id="course">
+      <option value="course">--select--</option>
+      <option value="python">Python</option>
+      <option value="java">Java</option>
+      <option value="html">HTML</option>
+      <option value="cloud">Cloud Computing</option>
+      <option value="bigdata">Big Data</option>
+      <option value="ml">Machine Learning</option>
+      <option value="webdev">Web Development</option>
+    </select>
+    
+    <label for="skills">Skills:</label>
+    <select id="skills">
+      <option value="programming">--select--</option>
+      <option value="programming">Programming</option>
+      <option value="algorithms">Algorithms</option>
+      <option value="datastructures">Data Structures</option>
+      <option value="databases">Databases</option>
+      <option value="networking">Networking</option>
+      <option value="security">Security</option>
+      <option value="webdesign">Web Design</option>
+      <option value="frontend">Frontend Development</option>
+      <option value="backend">Backend Development</option>
+    </select>
+    
+    <label for="year">Year of Study:</label>
+    <input type="number" id="year" min="1" max="4" required>
+    
+    <label for="gender">Gender:</label>
+    <select id="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    
+    <label for="photo">Select Photo:</label>
+    <input type="file" id="photo" accept="image/*">
+    
+    <label for="websiteLink">Website Link:</label>
+    <input type="text" id="websiteLink">
+    
+    <button type="button" id="enrollBtn">Enroll</button>
+  </form>
+</div>
+
+<div class="enrolled-container">
+  <div class="enrolled-list">
+    <h2>Enrolled Students</h2>
+    <ul id="enrolledStudents"></ul>
+  </div>
+</div>
+
+<script>
+  const enrollBtn = document.getElementById("enrollBtn");
+  const enrolledStudentsList = document.getElementById("enrolledStudents");
+  
+  enrollBtn.addEventListener("click", function() {
+    const name = document.getElementById("name").value;
+    const course = document.getElementById("course").value;
+    const skills = document.getElementById("skills").value;
+    const year = document.getElementById("year").value;
+    const gender = document.getElementById("gender").value;
+    const email = document.getElementById("email").value;
+    const photoInput = document.getElementById("photo");
+    const websiteLink = document.getElementById("websiteLink").value;
+    
+    const photoFile = photoInput.files[0];
+    const photoUrl = photoFile ? URL.createObjectURL(photoFile) : "";
+    
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
+      <img src="${photoUrl}" alt="Student Photo">
+      <div>
+        <strong>${name}</strong> - Course: ${course}, Skills: ${skills}, Year: ${year}, Gender: ${gender}, Email: ${email},
+        Website: <a href="${websiteLink}" target="_blank">${websiteLink}</a>
+      </div>
+    `;
+    
+    enrolledStudentsList.appendChild(listItem);
+    
+    // Clear the form fields
+    document.getElementById("name").value = "";
+    document.getElementById("course").value = "--select--";
+    document.getElementById("skills").value = "--select--";
+    document.getElementById("year").value = "";
+    document.getElementById("gender").value = "male";
+    document.getElementById("email").value = "";
+    photoInput.value = "";
+    document.getElementById("websiteLink").value = "";
+  });
+</script>
+</body>
+</html>
